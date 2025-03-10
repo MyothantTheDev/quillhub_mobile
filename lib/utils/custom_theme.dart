@@ -41,7 +41,7 @@ class CustomTheme {
         border: OutlineInputBorder(
           borderSide: BorderSide(width: 1, color: Colors.white38),
         )
-      )
+      ),
     );
 
   }
@@ -60,12 +60,12 @@ class CustomTheme {
         bodySmall: _textStyleBody(16, false, fontStyle: FontStyle.italic),
       ),
       inputDecorationTheme: InputDecorationTheme(
-          labelStyle: _textStyleTitle(20, false),
-          contentPadding: EdgeInsets.all(15),
-          border: OutlineInputBorder(
-            borderSide: BorderSide(width: 1, color: Colors.grey.shade800),
-          )
-      )
+        labelStyle: _textStyleTitle(20, false),
+        contentPadding: EdgeInsets.all(15),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(width: 1, color: Colors.grey.shade800),
+        )
+      ),
     );
 
   }
