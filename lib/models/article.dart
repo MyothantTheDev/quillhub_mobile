@@ -7,14 +7,16 @@ class ArticleBlock {
   final ArticleBlockType type;
   final String? text;
   final String? imageUrl;
+  final int? serial_number;
 
-  ArticleBlock({required this.type, this.text, this.imageUrl});
+  ArticleBlock({required this.type, this.text, this.imageUrl, this.serial_number});
 
   factory ArticleBlock.fromJson(Map<String, dynamic> json) {
     return ArticleBlock(
       type: ArticleBlockType.values.firstWhere((e) => e.toString() == 'ArticleBlockType.${json['type']}'),
       text: json['text'],
       imageUrl: json['imageUrl'],
+      serial_number: json['serial_number']
     );
   }
 
@@ -23,6 +25,7 @@ class ArticleBlock {
       'type': type.toString().split('.').last,
       'text': text,
       'imageUrl': imageUrl,
+      'serial_number': serial_number
     };
   }
 }
