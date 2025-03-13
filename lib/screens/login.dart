@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quillhub/providers/theme_mode_provider.dart';
-import 'package:quillhub/widgets/circle_paint.dart';
 import 'package:quillhub/widgets/custom_elevated_btn.dart';
 import 'package:quillhub/widgets/email_input_field.dart';
 import 'package:quillhub/widgets/password_input_field.dart';
