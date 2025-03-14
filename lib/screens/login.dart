@@ -64,7 +64,7 @@ class LoginScreen extends ConsumerWidget {
                      SizedBox(height: height * 0.05,),
                      EmailInputField(controller: textEmail, decoration: _boxShadow(themeData)),
                      SizedBox(height: height * 0.035,),
-                     PasswordInputField(controller: textPassword, decoration: _boxShadow(themeData)),
+                     PasswordInputField(controller: textPassword, decoration: _boxShadow(themeData), value: 'Password'),
                      SizedBox(height: height * 0.035,),
                      SignInButton(onPressed: () {}),
                      SizedBox(height: height * 0.035),
