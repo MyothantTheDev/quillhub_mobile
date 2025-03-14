@@ -5,6 +5,7 @@ import 'package:quillhub/screens/login.dart';
 import 'package:quillhub/screens/profile.dart';
 import 'package:quillhub/screens/splash.dart';
 import 'package:quillhub/widgets/custom_nav_app_bar.dart';
+import 'package:quillhub/screens/register.dart';
 
 // final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 // final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -60,6 +61,15 @@ class RouterService {
                   return LoginScreen();
                 },
                 name: 'login'
+            ),
+
+            /// Register screen
+            GoRoute(
+                path: '/register',
+                name: 'register_route',
+                builder: (BuildContext context, GoRouterState state) {
+                  return RegisterScreen();
+                }
             )
           ],
           name: 'home',
