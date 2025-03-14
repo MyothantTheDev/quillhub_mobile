@@ -11,8 +11,7 @@ class Clickable_Text extends StatelessWidget {
     // TODO: implement build
     return GestureDetector(
       onTap: () {
-        // context.goNamed(linkName);
-        print(linkName);
+        context.goNamed(linkName);
       },
       child: child,
     );
