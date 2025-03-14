@@ -24,10 +24,11 @@ class SignInFooter extends StatelessWidget {
               'Don\'t have an account?',
               style: TextStyle(fontSize: 14, color: Colors.grey, fontWeight: FontWeight.bold),
             ),
+            SizedBox(width: 10,),
             Clickable_Text(
-              linkName: '',
+              linkName: 'register_route',
               child: const Text(
-                ' SIGN UP',
+                'SIGN UP',
                 style: TextStyle(color: Colors.indigo, fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
