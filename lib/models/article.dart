@@ -1,5 +1,5 @@
 import 'package:quillhub/models/base.dart';
-import 'package:quillhub/services/api_response.dart';
+import 'package:quillhub/models/api_response.dart';
 
 enum ArticleBlockType { title, subtitle, image, paragraph }
 

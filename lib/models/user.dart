@@ -1,5 +1,6 @@
 import 'package:quillhub/models/base.dart';
-import 'package:quillhub/services/api_response.dart';
+import 'package:quillhub/models/api_response.dart';
+
 class User extends Model {
   int? id;
   String? name;
