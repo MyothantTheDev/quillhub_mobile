@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:quillhub/services/api_response.dart';
+import 'package:quillhub/models/api_response.dart';
 import 'package:quillhub/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:quillhub/utils/error_handling.dart';
