@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 
 class CustomTheme {
 
-  static TextStyle _textStyleTitle(double fontSize, bool darkTheme, {FontWeight? fontWeight, FontStyle? fontStyle}) {
+  static bool _is_darkMode = true;
+
+  static TextStyle _textStyleTitle(double fontSize, {FontWeight? fontWeight, FontStyle? fontStyle}) {
     return TextStyle(
       fontFamily: _TextStyleConstants.fontFamilyTitle,
-      color: darkTheme ? _TextStyleConstants.textColorDarkTheme : _TextStyleConstants.textColorWhiteTheme,
+      color: _is_darkMode ? _TextStyleConstants.textColorDarkTheme : _TextStyleConstants.textColorWhiteTheme,
       fontSize: fontSize,
       fontWeight: fontWeight ?? FontWeight.normal,
       fontStyle: fontStyle ?? FontStyle.normal
     );
   }
 
-  static TextStyle _textStyleBody(double fontSize, bool darkTheme, {FontWeight? fontWeight, FontStyle? fontStyle}) {
+  static TextStyle _textStyleBody(double fontSize, {FontWeight? fontWeight, FontStyle? fontStyle}) {
     return TextStyle(
       fontFamily: _TextStyleConstants.fontFamilyBody,
-      color: darkTheme ? _TextStyleConstants.textColorDarkTheme : _TextStyleConstants.textColorWhiteTheme,
+      color: _is_darkMode ? _TextStyleConstants.textColorDarkTheme : _TextStyleConstants.textColorWhiteTheme,
       fontSize: fontSize,
       fontWeight: fontWeight ?? FontWeight.normal,
       fontStyle: fontStyle ?? FontStyle.normal
@@ -28,15 +30,15 @@ class CustomTheme {
       brightness: Brightness.dark,
       useMaterial3: true,
       textTheme: TextTheme(
-        titleLarge: _textStyleTitle(25, true),
-        titleMedium: _textStyleTitle(22, true),
-        titleSmall: _textStyleTitle(20, true),
-        bodyLarge: _textStyleBody(20, true, fontWeight: FontWeight.w500),
-        bodyMedium: _textStyleBody(18, true),
-        bodySmall: _textStyleBody(16, true, fontStyle: FontStyle.italic),
+        titleLarge: _textStyleTitle(25),
+        titleMedium: _textStyleTitle(22),
+        titleSmall: _textStyleTitle(20),
+        bodyLarge: _textStyleBody(20, fontWeight: FontWeight.w500),
+        bodyMedium: _textStyleBody(18),
+        bodySmall: _textStyleBody(16, fontStyle: FontStyle.italic),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        labelStyle: _textStyleTitle(20, true),
+        labelStyle: _textStyleTitle(20),
         contentPadding: EdgeInsets.all(15),
         border: OutlineInputBorder(
           borderSide: BorderSide(width: 1, color: Colors.white38),
@@ -47,20 +49,20 @@ class CustomTheme {
   }
 
   static ThemeData lightTheme() {
-
+    _is_darkMode = false;
     return ThemeData(
       brightness: Brightness.light,
       useMaterial3: true,
       textTheme: TextTheme(
-        titleLarge: _textStyleTitle(25, false),
-        titleMedium: _textStyleTitle(22, false),
-        titleSmall: _textStyleTitle(20, false),
-        bodyLarge: _textStyleBody(20, false, fontWeight: FontWeight.w500),
-        bodyMedium: _textStyleBody(18, false),
-        bodySmall: _textStyleBody(16, false, fontStyle: FontStyle.italic),
+        titleLarge: _textStyleTitle(25),
+        titleMedium: _textStyleTitle(22),
+        titleSmall: _textStyleTitle(20),
+        bodyLarge: _textStyleBody(20, fontWeight: FontWeight.w500),
+        bodyMedium: _textStyleBody(18),
+        bodySmall: _textStyleBody(16, fontStyle: FontStyle.italic),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        labelStyle: _textStyleTitle(20, false),
+        labelStyle: _textStyleTitle(20),
         contentPadding: EdgeInsets.all(15),
         border: OutlineInputBorder(
           borderSide: BorderSide(width: 1, color: Colors.grey.shade800),
