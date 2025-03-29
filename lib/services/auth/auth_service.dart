@@ -1,7 +1,7 @@
 import 'package:quillhub/models/user.dart';
 import 'package:quillhub/services/api/api_service.dart';
 import 'package:quillhub/models/api_response.dart';
-import 'package:quillhub/utils/constants.dart';
+import 'package:quillhub/utils/core/constants.dart';
 
 class AuthService {
 
