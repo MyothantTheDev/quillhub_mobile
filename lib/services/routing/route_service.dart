@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:quillhub/screens/home.dart';
-import 'package:quillhub/screens/login.dart';
-import 'package:quillhub/screens/profile.dart';
+import 'package:quillhub/screens/home/home.dart';
+import 'package:quillhub/screens/auth/login.dart';
+import 'package:quillhub/screens/profile/profile.dart';
 import 'package:quillhub/screens/splash.dart';
-import 'package:quillhub/widgets/custom_nav_app_bar.dart';
-import 'package:quillhub/screens/register.dart';
+import 'package:quillhub/widgets/layout/custom_nav_app_bar.dart';
+import 'package:quillhub/screens/auth/register.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
