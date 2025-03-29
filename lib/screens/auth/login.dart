@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quillhub/providers/theme_mode_provider.dart';
-import 'package:quillhub/widgets/custom_elevated_btn.dart';
-import 'package:quillhub/widgets/email_input_field.dart';
-import 'package:quillhub/widgets/password_input_field.dart';
-import 'package:quillhub/widgets/sign_in_background.dart';
-import 'package:quillhub/widgets/sign_in_footer.dart';
+import 'package:quillhub/widgets/buttons/custom_elevated_btn.dart';
+import 'package:quillhub/widgets/inputs/email_input_field.dart';
+import 'package:quillhub/widgets/inputs/password_input_field.dart';
+import 'package:quillhub/widgets/auth/sign_in_background.dart';
+import 'package:quillhub/widgets/auth/sign_in_footer.dart';
 
 class LoginScreen extends ConsumerWidget {
 

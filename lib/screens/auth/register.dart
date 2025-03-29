@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quillhub/providers/theme_mode_provider.dart';
-import 'package:quillhub/widgets/custom_elevated_btn.dart';
-import 'package:quillhub/widgets/email_input_field.dart';
-import 'package:quillhub/widgets/password_input_field.dart';
-import 'package:quillhub/widgets/register_background.dart';
-import 'package:quillhub/widgets/sign_up_footer.dart';
-import 'package:quillhub/widgets/user_input_field.dart';
+import 'package:quillhub/widgets/buttons/custom_elevated_btn.dart';
+import 'package:quillhub/widgets/inputs/email_input_field.dart';
+import 'package:quillhub/widgets/inputs/password_input_field.dart';
+import 'package:quillhub/widgets/auth/register_background.dart';
+import 'package:quillhub/widgets/auth/sign_up_footer.dart';
+import 'package:quillhub/widgets/inputs/user_input_field.dart';
 
 class RegisterScreen extends ConsumerWidget {
   RegisterScreen({super.key});
