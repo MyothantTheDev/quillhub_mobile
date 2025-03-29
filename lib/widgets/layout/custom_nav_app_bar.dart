@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quillhub/widgets/categories_bar.dart';
-import 'package:quillhub/widgets/profile_button_widget.dart';
-import 'package:quillhub/widgets/theme_mode_toggler.dart';
+import 'package:quillhub/widgets/layout/categories_bar.dart';
+import 'package:quillhub/widgets/profile/profile_button_widget.dart';
+import 'package:quillhub/widgets/buttons/theme_mode_toggler.dart';
 
 class CustomNavAppBar extends StatelessWidget {
 

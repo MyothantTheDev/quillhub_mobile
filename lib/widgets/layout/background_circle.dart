@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quillhub/widgets/circle_paint.dart';
+import 'package:quillhub/widgets/layout/circle_paint.dart';
 
 class BackgroundCircles extends StatelessWidget {
   final double size;

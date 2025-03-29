@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quillhub/widgets/clickable_text.dart';
+import 'package:quillhub/widgets/buttons/clickable_text.dart';
 
 class SignInFooter extends StatelessWidget {
   const SignInFooter({super.key});
