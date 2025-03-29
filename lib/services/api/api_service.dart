@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:quillhub/models/api_response.dart';
-import 'package:quillhub/utils/constants.dart';
+import 'package:quillhub/utils/core/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:quillhub/utils/error_handling.dart';
+import 'package:quillhub/utils/core/error_handling.dart';
 
 class ApiService{
 

@@ -7,14 +7,25 @@ import 'package:quillhub/screens/splash.dart';
 import 'package:quillhub/widgets/custom_nav_app_bar.dart';
 import 'package:quillhub/screens/register.dart';
 
-// final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
-// final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+
+enum AppRoutes {
+  home("home", "/home"),
+  profile("user_profile", "/profile"),
+  login("login", "/login"),
+  register("register_route", "/register");
+
+  final String route_name;
+  final String route_path;
+
+  const AppRoutes(this.route_name, this.route_path);
+}
 
 class RouterService {
   /// Section route (inside ShellRoute, uses _shellNavigatorKey)
   ///
   final GoRouter _router = GoRouter(
-    // navigatorKey: _rootNavigatorKey, // Root navigator for full-screen pages
+    navigatorKey: _rootNavigatorKey, // Root navigator for full-screen pages
     initialLocation: '/',
     routes: [
 
@@ -26,55 +37,53 @@ class RouterService {
 
       /// ShellRoute with bottom navigation
 
-
           /// Home screen with sections
         GoRoute(
-          path: '/home',
+          path: AppRoutes.home.route_path,
           builder: (BuildContext context, GoRouterState state) {
             return CustomNavAppBar(child: HomeScreen());
           },
           routes: [
             GoRoute(
               path: ':category/:id',
-              // parentNavigatorKey: _rootNavigatorKey,
+              parentNavigatorKey: _rootNavigatorKey,
               builder: (BuildContext context, GoRouterState state) {
                 final id = state.pathParameters['id'];
                 final category = state.pathParameters['category'];
                 return Placeholder();
               },
             ),
-            /// Profile screen (Full-Screen)
-            GoRoute(
-              path: '/profile',
-              // parentNavigatorKey: _rootNavigatorKey, // Ensures it's a full-screen page
-              builder: (BuildContext context, GoRouterState state) {
-                return ProfileScreen();
-              },
-              name: 'user_profile',
-            ),
-
-            /// Login screen
-            GoRoute(
-                path: '/login',
-                // parentNavigatorKey: _rootNavigatorKey,
-                builder: (BuildContext context, GoRouterState state) {
-                  return LoginScreen();
-                },
-                name: 'login'
-            ),
-
-            /// Register screen
-            GoRoute(
-                path: '/register',
-                name: 'register_route',
-                builder: (BuildContext context, GoRouterState state) {
-                  return RegisterScreen();
-                }
-            )
           ],
           name: 'home',
         ),
 
+      /// Profile screen (Full-Screen)
+      GoRoute(
+        path: AppRoutes.profile.route_path,
+        name: AppRoutes.profile.route_name,
+        parentNavigatorKey: _rootNavigatorKey, // Ensures it's a full-screen page
+        builder: (BuildContext context, GoRouterState state) {
+          return ProfileScreen();
+        },
+
+      ),
+
+      /// Login screen
+      GoRoute(
+        path: AppRoutes.login.route_path,
+        name: AppRoutes.login.route_name,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, __) => LoginScreen(),
+
+      ),
+
+      /// Register screen
+      GoRoute(
+          path: AppRoutes.register.route_path,
+          name: AppRoutes.register.route_name,
+          parentNavigatorKey: _rootNavigatorKey,
+          builder: (_, __) => RegisterScreen(),
+      )
 
 
     ],

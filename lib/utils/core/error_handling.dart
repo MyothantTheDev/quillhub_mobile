@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:quillhub/utils/constants.dart';
+import 'package:quillhub/utils/core/constants.dart';
 
 class ErrorHandling {
   static String handleHttpError(http.Response response) {

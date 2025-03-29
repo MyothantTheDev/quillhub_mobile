@@ -1,6 +1,6 @@
 import 'package:quillhub/models/article.dart';
-import 'package:quillhub/services/api_service.dart';
-import 'package:quillhub/utils/constants.dart';
+import 'package:quillhub/services/api/api_service.dart';
+import 'package:quillhub/utils/core/constants.dart';
 
 class ArticleService {
   late ApiService _apiService;

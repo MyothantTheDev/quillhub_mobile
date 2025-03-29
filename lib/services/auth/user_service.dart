@@ -1,6 +1,6 @@
 import 'package:quillhub/models/user.dart';
-import 'package:quillhub/services/api_service.dart';
-import 'package:quillhub/services/token_service.dart';
+import 'package:quillhub/services/api/api_service.dart';
+import 'package:quillhub/services/auth/token_service.dart';
 import 'package:quillhub/utils/constants.dart';
 
 // User

@@ -41,7 +41,7 @@ class LoginScreen extends ConsumerWidget {
         children: [
           SignInBackground(),
           Positioned(
-            top: 200,
+            top: MediaQuery.of(context).size.height * 0.25,
             child: Container(
               color: themeData == ThemeMode.dark ? Colors.white10 : Colors.white70,
               width: width * 0.9,

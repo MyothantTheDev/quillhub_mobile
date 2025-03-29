@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quillhub/widgets/background_circle.dart';
+import 'package:quillhub/widgets/layout/background_circle.dart';
 
 class SignInBackground extends StatelessWidget {
   const SignInBackground({super.key});
