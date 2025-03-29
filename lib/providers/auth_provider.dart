@@ -1,8 +1,8 @@
 import 'package:quillhub/models/auth_state.dart';
-import 'package:quillhub/services/token_service.dart';
-import 'package:quillhub/services/user_service.dart';
+import 'package:quillhub/services/auth/token_service.dart';
+import 'package:quillhub/services/auth/user_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:quillhub/services/auth_service.dart';
+import 'package:quillhub/services/auth/auth_service.dart';
 import 'package:quillhub/models/user.dart';
 
 part 'auth_provider.g.dart';

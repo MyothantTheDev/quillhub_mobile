@@ -1,5 +1,5 @@
 import 'package:quillhub/models/article.dart';
-import 'package:quillhub/services/article_service.dart';
+import 'package:quillhub/services/api/article_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'article_provider.g.dart';
