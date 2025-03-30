@@ -66,8 +66,10 @@ class CustomTheme {
         contentPadding: EdgeInsets.all(15),
         border: OutlineInputBorder(
           borderSide: BorderSide(width: 1, color: Colors.grey.shade800),
-        )
+        ),
+
       ),
+
     );
 
   }
