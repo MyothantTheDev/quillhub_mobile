@@ -12,12 +12,12 @@ class ProfileButtonWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authNotifier = ref.watch(authNotifierProvider);
-    final ImageProvider avatarImage = (authNotifier.value?.status == AuthStatus.authenticated)
-        ? NetworkImage(authNotifier.value?.user?.image ?? '')
+    final ImageProvider avatarImage = (authNotifier.status == AuthStatus.authenticated)
+        ? NetworkImage(authNotifier.user!.image ?? '')
         : const AssetImage('assets/images/male-avatar.png');
     return InkWell(
       onTap: () {
-        if(authNotifier.value?.status == AuthStatus.authenticated) {
+        if(authNotifier.status == AuthStatus.authenticated) {
           context.goNamed('user_profile');
         } else {
           context.goNamed('login');
