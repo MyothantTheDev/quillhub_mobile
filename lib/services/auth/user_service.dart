@@ -5,14 +5,21 @@ import 'package:quillhub/utils/core/constants.dart';
 
 // User
 class UserService {
-  static Future<User> userDetail() async {
-    ApiService service = ApiService();
-    TokenService tokenService = TokenService();
-    final token = await tokenService.getToken();
-    final response = await service.getRequest(Constants.userURL, {'Accept': 'application/json', 'Authorization': 'Bearer $token'});
+
+  final ApiService _service = ApiService();
+  final TokenService _tokenService = TokenService();
+
+  Future<User> userDetail() async {
+
+    final token = await _tokenService.getToken();
+    if (token.isEmpty) {
+      return User(error: "Unauthorized: No token found");
+    }
+    final response = await _service.getRequest(Constants.userURL, headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'});
     if (response.error != null) {
       return User.errorCounter(response);
     }
     return User.fromJson(response.data as Map<String, dynamic>);
   }
+
 }
