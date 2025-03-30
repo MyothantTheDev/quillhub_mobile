@@ -21,6 +21,10 @@ class AuthService {
     return _handleUserModel(apiResponse);
   }
 
+  Future<void> logout() async {
+    await _apiService.getRequest(Constants.logoutURL);
+  }
+
   // Register
   Future<User> register(String name, String email, String password) async {
     final apiResponse = await _apiService.postRequest(
