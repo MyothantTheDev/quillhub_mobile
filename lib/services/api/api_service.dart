@@ -22,7 +22,7 @@ class ApiService{
 
   }
 
-  Future<ApiResponse> getRequest(String url, Map<String, String> headers) async {
+  Future<ApiResponse> getRequest(String url, {Map<String, String>? headers}) async {
 
     try {
       final response = await http.get(
