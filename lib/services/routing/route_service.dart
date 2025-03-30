@@ -4,6 +4,7 @@ import 'package:quillhub/screens/home/home.dart';
 import 'package:quillhub/screens/auth/login.dart';
 import 'package:quillhub/screens/profile/profile.dart';
 import 'package:quillhub/screens/splash.dart';
+import 'package:quillhub/widgets/layout/back_home.dart';
 import 'package:quillhub/widgets/layout/custom_nav_app_bar.dart';
 import 'package:quillhub/screens/auth/register.dart';
 
@@ -32,7 +33,7 @@ class RouterService {
       /// Splash Screen (Full-Screen)
       GoRoute(
         path: '/',
-        builder: (BuildContext context, GoRouterState state) => const SplashScreen(),
+        builder: (_, __) => const SplashScreen(),
       ),
 
       /// ShellRoute with bottom navigation
@@ -62,9 +63,7 @@ class RouterService {
         path: AppRoutes.profile.route_path,
         name: AppRoutes.profile.route_name,
         parentNavigatorKey: _rootNavigatorKey, // Ensures it's a full-screen page
-        builder: (BuildContext context, GoRouterState state) {
-          return ProfileScreen();
-        },
+        builder: (_, __) => ProfileScreen(),
 
       ),
 
@@ -73,7 +72,7 @@ class RouterService {
         path: AppRoutes.login.route_path,
         name: AppRoutes.login.route_name,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (_, __) => LoginScreen(),
+        builder: (_, __) => BackHome(child: LoginScreen()),
 
       ),
 
@@ -82,7 +81,7 @@ class RouterService {
           path: AppRoutes.register.route_path,
           name: AppRoutes.register.route_name,
           parentNavigatorKey: _rootNavigatorKey,
-          builder: (_, __) => RegisterScreen(),
+          builder: (_, __) => BackHome(child: RegisterScreen()),
       )
 
 
