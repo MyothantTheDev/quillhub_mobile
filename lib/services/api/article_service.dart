@@ -13,7 +13,7 @@ class ArticleService {
     List<Article> allArticles = [];
     final response = await _apiService.getRequest(
       Constants.postURL,
-      {'Accept': 'application/json'}
+      headers: {'Accept': 'application/json'}
     );
     if (response.data != null && response.data is List<dynamic>) {
       for(final item in response.data as List<dynamic>) {
@@ -28,7 +28,7 @@ class ArticleService {
   Future<Article> getDetailArticle(int id) async {
     final response = await _apiService.getRequest(
       '${Constants.postURL}/$id',
-      {'Accept': 'application/json'}
+      headers: {'Accept': 'application/json'}
     );
     if (response.error != null) {
       return Article.errorCounter(response);

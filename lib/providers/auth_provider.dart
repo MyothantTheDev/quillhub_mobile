@@ -62,4 +62,12 @@ class AuthNotifier extends _$AuthNotifier {
     });
   }
 
+  AuthStatus? get authStatus {
+    return state.when(
+      data: (authState) => authState.status,
+      loading: () => AuthStatus.loading,
+      error: (err, stack) => AuthStatus.unauthenticated
+    );
+  }
+
 }
