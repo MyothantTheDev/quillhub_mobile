@@ -12,48 +12,54 @@ class AuthNotifier extends _$AuthNotifier {
 
   final _authService = AuthService();
   final _tokenService = TokenService();
+  final _userService = UserService();
 
   @override
-  AuthState build() {
-    _initializeAuth();
-    return AuthState(status: AuthStatus.unauthenticated);
+  FutureOr<AuthState> build() async {
+    return await _getInitialAuthToken();
   }
 
-  AuthState _getAuthStateFromResponse(User user, {bool errorMessage = false}) {
-    if (user.error == null) {
-      return AuthState(status: AuthStatus.authenticated, user: user);
-    } else {
-      if (errorMessage) {
-        return AuthState(status: AuthStatus.error, errorMessage: user.error);
-      } else {
-        return AuthState(status: AuthStatus.unauthenticated);
-      }
-    }
-  }
-
-  Future<void> _initializeAuth() async {
+  Future<AuthState> _getInitialAuthToken() async {
     String token = await _tokenService.getToken();
-    if(token == '') {
-      state = AuthState(status: AuthStatus.unauthenticated);
-      return;
+    if (token.isEmpty) {
+      return AuthState(status: AuthStatus.unauthenticated);
     }
-    final user = await UserService.userDetail();
-    state = _getAuthStateFromResponse(user);
+
+    final user = await _userService.userDetail();
+    return _getAuthStateFromResponse(user);
+  }
+
+  Future<AuthState> _getAuthStateFromResponse(User user) async {
+    if(user.error == null) {
+      return AuthState(status: AuthStatus.authenticated, user: user);
+    }
+
+    return AuthState(status: AuthStatus.unauthenticated, errorMessage: user.error);
   }
 
   Future<void> login(String email, String password) async {
-    state = AuthState(status: AuthStatus.loading);
-    final user = await _authService.login(email, password);
-    state = _getAuthStateFromResponse(user, errorMessage: true);
+    state = AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      User user = await _authService.login(email, password);
+      return _getAuthStateFromResponse(user);
+    });
+  }
+
+  Future<void> logout() async {
+    state = await AsyncValue.guard(() async => AuthState(status: AuthStatus.loading));
+    state = await AsyncValue.guard(() async {
+      await _authService.logout();
+      await _tokenService.removeToken();
+      return AuthState(status: AuthStatus.unauthenticated);
+    });
   }
 
   Future<void> register(String name, String email, String password) async {
-    final user = await _authService.register(name, email, password);
-    state = _getAuthStateFromResponse(user, errorMessage: true);
+    state = await AsyncValue.guard(() async => AuthState(status: AuthStatus.loading));
+    state = await AsyncValue.guard(() async {
+      User user = await _authService.register(name, email, password);
+      return _getAuthStateFromResponse(user);
+    });
   }
 
-  void logout() async {
-    state = AuthState(status: AuthStatus.unauthenticated);
-    _tokenService.removeToken();
-  }
 }
