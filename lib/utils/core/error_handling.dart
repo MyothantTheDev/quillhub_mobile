@@ -6,10 +6,10 @@ class ErrorHandling {
   static String handleHttpError(http.Response response) {
     switch(response.statusCode){
       case 422:
-        final errors = jsonDecode(response.body)['errors'];
+        final errors = jsonDecode(response.body)['message'];
         return errors[errors.keys.elementAt(0)][0];
       case 403:
-        return jsonDecode(response.body)['errors'];
+        return jsonDecode(response.body)['message'];
       default:
         return Constants.internalError;
     }
