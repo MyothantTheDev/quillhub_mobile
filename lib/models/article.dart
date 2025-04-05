@@ -6,25 +6,32 @@ enum ArticleBlockType { title, subtitle, image, paragraph }
 class ArticleBlock {
   final ArticleBlockType type;
   final String? text;
-  final String? imageUrl;
+  final String? image;
   final int? serial_number;
 
-  ArticleBlock({required this.type, this.text, this.imageUrl, this.serial_number});
+  ArticleBlock({required this.type, this.text, this.image, this.serial_number});
 
   factory ArticleBlock.fromJson(Map<String, dynamic> json) {
+    final typeString = json['type'] as String?;
+    final matchedType = ArticleBlockType.values.firstWhere(
+        (e) => e.name == typeString,
+        orElse: () => ArticleBlockType.paragraph
+    );
+
     return ArticleBlock(
-      type: ArticleBlockType.values.firstWhere((e) => e.toString() == 'ArticleBlockType.${json['type']}'),
+      type: matchedType,
       text: json['text'],
-      imageUrl: json['imageUrl'],
+      image: json['imageUrl'],
       serial_number: json['serial_number']
     );
   }
 
   Map<String, dynamic> toJson() {
+
     return {
       'type': type.toString().split('.').last,
       'text': text,
-      'imageUrl': imageUrl,
+      'imageUrl': image,
       'serial_number': serial_number
     };
   }
@@ -37,9 +44,13 @@ class Article extends Model {
   Article({this.id, this.content, this.error});
 
   factory Article.fromJson(Map<String, dynamic> json) {
+
+    final blocks = (json['content'] as List).map((block) => ArticleBlock.fromJson(block)).toList();
+    blocks.sort((a, b) => (a.serial_number ?? 0).compareTo(b.serial_number ?? 0));
+
     return Article(
       id: json['id'],
-      content: (json['content'] as List).map((block) => ArticleBlock.fromJson(block)).toList(),
+      content: blocks,
     );
   }
 
@@ -53,6 +64,10 @@ class Article extends Model {
   String? error;
 
   factory Article.errorCounter(ApiResponse response) {
-    return Article(error: response.error);
+    return Article(error: response.message);
   }
+
+  bool get hasError => error != null;
+
+  bool get isEmpty => content == null || content!.isEmpty;
 }
