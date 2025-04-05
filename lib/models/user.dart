@@ -30,7 +30,7 @@ class User extends Model {
 
   factory User.errorCounter(ApiResponse response) {
     return User(
-      error: response.error
+      error: response.message
     );
   }
 
