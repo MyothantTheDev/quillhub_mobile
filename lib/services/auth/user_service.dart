@@ -16,7 +16,7 @@ class UserService {
       return User(error: "Unauthorized: No token found");
     }
     final response = await _service.getRequest(Constants.userURL, headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'});
-    if (response.error != null) {
+    if (response.status != 200) {
       return User.errorCounter(response);
     }
     return User.fromJson(response.data as Map<String, dynamic>);
