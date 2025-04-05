@@ -39,17 +39,24 @@ class ApiService{
 
   ApiResponse _handleResponse(http.Response response) {
     ApiResponse apiResponse = ApiResponse();
+
     if (response.statusCode == 200) {
       apiResponse.data = jsonDecode(response.body);
     } else {
-      apiResponse.error = ErrorHandling.handleHttpError(response);
+      apiResponse.message = ErrorHandling.handleHttpError(response);
     }
+
     return apiResponse;
   }
 
-  ApiResponse _handleException() {
+  ApiResponse _handleException([Exception? e]) {
     ApiResponse apiResponse = ApiResponse();
-    apiResponse.error = Constants.serverError;
+    apiResponse.message = Constants.serverError;
+
+    if (e != null) {
+      apiResponse.message = e.toString();
+    }
+
     return apiResponse;
   }
 
