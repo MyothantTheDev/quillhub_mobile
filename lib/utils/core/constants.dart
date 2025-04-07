@@ -1,6 +1,6 @@
 class Constants {
   // ------- Url -------
-  static const String baseURL = 'http://127.0.0.1:5000';
+  static const String baseURL = 'http://10.0.2.2:5000';
   static const String apiVersion = '$baseURL/api/v1';
 
   // Auth Url
