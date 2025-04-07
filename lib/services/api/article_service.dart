@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:quillhub/models/api_response.dart';
 import 'package:quillhub/models/article.dart';
 import 'package:quillhub/services/api/api_service.dart';
@@ -13,22 +15,22 @@ class ArticleService {
   Future<List<Article>> getAllArticle(int page) async {
     List<Article> allArticles = [];
     try {
-
+      final url = '${Constants.postURL}/$page';
       final response = await _apiService.getRequest(
-          '${Constants.postURL}/$page',
+          url,
           headers: {'Accept': 'application/json'}
       );
 
       if (response.data != null && response.data is List<dynamic>) {
         for(final item in response.data as List<dynamic>) {
           try {
-            allArticles.add(Article.fromJson(item as Map<String, dynamic>));
+            Map<String, dynamic> raw_article = jsonDecode(item);
+            allArticles.add(Article.fromJson(raw_article));
           } catch (e) {
             print('Error parsing article: $e');
           }
         }
       }
-      allArticles.add(Article.errorCounter(response));
     } catch (e) {
       print('Error fetching article: $e');
       allArticles.add(Article.errorCounter(ApiResponse()..message = e.toString()));
