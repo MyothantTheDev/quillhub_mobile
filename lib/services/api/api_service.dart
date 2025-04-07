@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:quillhub/models/api_response.dart';
 import 'package:quillhub/utils/core/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:quillhub/utils/core/error_handling.dart';
 
 class ApiService{
 
@@ -31,26 +30,20 @@ class ApiService{
       );
       return _handleResponse(response);
     } catch(e) {
-      return _handleException();
+      return _handleException(e as Exception?);
     }
 
   }
 
 
   ApiResponse _handleResponse(http.Response response) {
-    ApiResponse apiResponse = ApiResponse();
 
-    if (response.statusCode == 200) {
-      apiResponse.data = jsonDecode(response.body);
-    } else {
-      apiResponse.message = ErrorHandling.handleHttpError(response);
-    }
-
-    return apiResponse;
+    return ApiResponse.fromJson(jsonDecode(response.body));
   }
 
   ApiResponse _handleException([Exception? e]) {
     ApiResponse apiResponse = ApiResponse();
+    apiResponse.status = 400;
     apiResponse.message = Constants.serverError;
 
     if (e != null) {
