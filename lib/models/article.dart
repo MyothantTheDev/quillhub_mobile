@@ -37,20 +37,50 @@ class ArticleBlock {
   }
 }
 
+class Teaser extends Model {
+  final String? title;
+  final String? image;
+  final String? text;
+
+  Teaser({this.title, this.image, this.text, this.error});
+
+  factory Teaser.fromJson(Map<String, dynamic> json) {
+
+    return Teaser(
+      title: json['title'],
+      image: json['image'],
+      text: json['text']
+    );
+  }
+
+  @override
+  String? error;
+  factory Teaser.errorCounter(ApiResponse response) {
+
+    return Teaser(error: response.message);
+  }
+}
+
 class Article extends Model {
   final String? id;
   final List<ArticleBlock>? content;
+  final int? likes;
+  final Teaser? teaser;
 
-  Article({this.id, this.content, this.error});
+  Article({this.id, this.content, this.error, this.likes, this.teaser});
 
   factory Article.fromJson(Map<String, dynamic> json) {
 
     final blocks = (json['content'] as List).map((block) => ArticleBlock.fromJson(block)).toList();
     blocks.sort((a, b) => (a.serial_number ?? 0).compareTo(b.serial_number ?? 0));
 
+    final rawTeaser = Teaser.fromJson(json['teaser'] as Map<String, dynamic>);
+
     return Article(
-      id: json['id'],
+      id: json['_id']['\$oid'],
       content: blocks,
+      likes: json['likes'],
+      teaser: rawTeaser
     );
   }
 
