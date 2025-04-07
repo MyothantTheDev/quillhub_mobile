@@ -42,7 +42,7 @@ class AuthService {
 
   // Handling User Model
   User _handleUserModel(ApiResponse apiResponse) {
-    if(apiResponse.error != null) {
+    if(apiResponse.status != 200) {
       return User.errorCounter(apiResponse);
     }
     return User.fromJson(apiResponse as Map<String, dynamic>);
