@@ -74,11 +74,19 @@ class Article extends Model {
     final blocks = (json['content'] as List).map((block) => ArticleBlock.fromJson(block)).toList();
     blocks.sort((a, b) => (a.serial_number ?? 0).compareTo(b.serial_number ?? 0));
 
+    return Article(
+      id: json['_id']['\$oid'],
+      content: blocks,
+      likes: json['likes'],
+    );
+  }
+
+  factory Article.fromJsonWithTeaser(Map<String, dynamic> json) {
+
     final rawTeaser = Teaser.fromJson(json['teaser'] as Map<String, dynamic>);
 
     return Article(
       id: json['_id']['\$oid'],
-      content: blocks,
       likes: json['likes'],
       teaser: rawTeaser
     );
