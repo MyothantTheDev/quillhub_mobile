@@ -16,7 +16,7 @@ class CustomNavAppBar extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
+        preferredSize: Size.fromHeight(MediaQuery.sizeOf(context).height * 0.12),
         child: _CustomAppBar(),
       ),
       body: child,
@@ -55,7 +55,10 @@ class _CustomAppBar extends ConsumerWidget {
                 )
               ],
             ),
-            CategoriesBar()
+            Container(
+                margin: EdgeInsets.all(MediaQuery.sizeOf(context).height * 0.001),
+                child: CategoriesBar()
+            )
           ],
         )
     );
