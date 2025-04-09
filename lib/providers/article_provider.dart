@@ -18,17 +18,41 @@ class ArticleNotifier extends StateNotifier<List<Article>> {
 
   Future<void> loadNextPage() async {
     if (_isFetching || !_hasMore) return;
-
     _isFetching = true;
 
-    final newArticles = await ref.read(articleServiceProvider).getAllArticle(_currentPage);
-    if (newArticles.isEmpty) {
-      _hasMore = false;
-    } else {
-      state = [...state, ...newArticles];
-      _currentPage++;
+    try {
+
+      final newArticles = await ref.read(articleServiceProvider).getAllArticle(_currentPage);
+      print('                       API FETCHING ARTICLE LEN                       ');
+      print('----------------------------------------------------------------------');
+      print('ARTICLE LENGTH: ${newArticles.length}');
+      print('----------------------------------------------------------------------');
+      if (newArticles.isEmpty) {
+        _hasMore = false;
+      } else {
+        state = [...state, ...newArticles];
+        _currentPage++;
+      }
+
+    } catch (e) {
+
+      print('                       ERROR WHILE API FETCHING                       ');
+      print('----------------------------------------------------------------------');
+      print('Error api fetching: \n$e');
+      print('----------------------------------------------------------------------');
+
+    } finally {
+      _isFetching = false;
     }
 
-    _isFetching = false;
+  }
+
+  Future<void> refreshArticles() async {
+    _currentPage = 1;
+    _hasMore = true;
+
+    final newArticles = await ref.read(articleServiceProvider).getAllArticle(_currentPage);
+    state = [...newArticles];
+    _currentPage++;
   }
 }
