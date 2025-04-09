@@ -1,21 +1,32 @@
-import 'dart:convert';
-
 import 'package:quillhub/models/api_response.dart';
 import 'package:quillhub/utils/core/constants.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class ApiService{
+
+  late Dio http;
+
+  ApiService() {
+    http = Dio(BaseOptions(
+        connectTimeout: const Duration(milliseconds: 5 * 6000),
+        receiveTimeout: const Duration(milliseconds: 5 * 6000)
+      )
+    );
+  }
 
   Future<ApiResponse> postRequest(String url, Map<String, String> headers, Map<String, String> body) async {
 
     try {
       final response = await http.post(
-          Uri.parse(url),
-          headers: headers,
-          body: body
+          url,
+          options: Options(
+            headers: headers
+          ),
+          data: body
       );
       return _handleResponse(response);
-    } catch(e) {
+    }
+    catch(e) {
       return _handleException();
     }
 
@@ -25,20 +36,31 @@ class ApiService{
 
     try {
       final response = await http.get(
-        Uri.parse(url),
-        headers: headers
+        url,
+        options: Options(headers: headers)
       );
       return _handleResponse(response);
-    } catch(e) {
+    } on DioException catch(e) {
+      if (e.response != null) {
+        print('                       DIO ERROR                      ');
+        print('----------------------------------------------------------------------');
+        print('Dio Exception: ${e.response!.data}');
+        print('Dio Error Message: ${e.response!.headers}');
+        print('Dio Error Message: ${e.response!.requestOptions}');
+        print('----------------------------------------------------------------------');
+      }
+      print('                       BASE HTTP CODE ERROR                      ');
+      print('----------------------------------------------------------------------');
+      print('BASE HTTP RESPONSE: ${e}');
+      print('----------------------------------------------------------------------');
       return _handleException(e as Exception?);
     }
-
   }
 
 
-  ApiResponse _handleResponse(http.Response response) {
+  ApiResponse _handleResponse(dynamic response) {
 
-    return ApiResponse.fromJson(jsonDecode(response.body));
+    return ApiResponse.fromJson(response.data);
   }
 
   ApiResponse _handleException([Exception? e]) {
