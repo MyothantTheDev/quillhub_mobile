@@ -22,8 +22,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   void _scrollListener() {
-    double currentPosition = _scrollController.position.pixels;
-    double maxPosition = _scrollController.position.maxScrollExtent - 300;
+    double currentPosition = _scrollController.offset;
+    double maxPosition = _scrollController.position.maxScrollExtent - 100;
     if (currentPosition >= maxPosition && !_isloading) {
       _loadMoreArticles();
     }
@@ -37,7 +37,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Future<void> _loadMoreArticles() async {
     setState(() => _isloading = true);
-    await ref.read(articleNotifierProvider.notifier).loadNextPage();
+    ref.read(articleNotifierProvider.notifier).loadNextPage();
     setState(() => _isloading = false);
 
   }
@@ -47,23 +47,30 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final category = ref.watch(categoryProvider);
     final articles = ref.watch(articleNotifierProvider);
 
-    return ListView.builder(
-        controller: _scrollController,
-        itemCount: articles.length + (_isloading ? 1 : 0),
-        itemBuilder: (context, index) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        await ref.read(articleNotifierProvider.notifier).refreshArticles();
+        return Future<void>.delayed(const Duration(seconds: 2));
+      },
+      child: ListView.separated(
+          controller: _scrollController,
+          itemCount: articles.length + (_isloading ? 1 : 0),
+          itemBuilder: (context, index) {
 
-          if (index == articles.length) {
-            return const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Center(child: CircularProgressIndicator()),
+            if (index == articles.length) {
+              return const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Center(child: CircularProgressIndicator()),
+              );
+            }
+
+            final article = articles[index];
+            return ListTile(
+              title: Text('${index + 1} ${article.teaser?.title}'),
             );
-          }
-
-          final article = articles[index];
-          return ListTile(
-            title: Text('${index + 1} ${article.teaser?.title}' ?? 'No Title'),
-          );
-        },
+          },
+        separatorBuilder: (BuildContext context, int index) => const Divider(height: 1),
+      ),
     );
   }
 
