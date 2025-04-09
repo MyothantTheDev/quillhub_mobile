@@ -18,24 +18,30 @@ class ArticleService {
       final url = '${Constants.postURL}/$page';
       final response = await _apiService.getRequest(
           url,
-          headers: {'Accept': 'application/json'}
+          headers: {
+            'Accept': 'application/json',
+            'Connection': 'keep-alive',
+          }
       );
 
       if (response.data != null && response.data is List<dynamic>) {
         for(final item in response.data as List<dynamic>) {
-          try {
-            Map<String, dynamic> raw_article = jsonDecode(item);
-            allArticles.add(Article.fromJson(raw_article));
+          try {;
+            allArticles.add(Article.fromJsonWithTeaser(item));
           } catch (e) {
             print('Error parsing article: $e');
           }
         }
       }
+      print('                       AFTER CLEAN ARTICLE MODEL                      ');
+      print('----------------------------------------------------------------------');
+      print('ALL ARTICLES LENGTH: ${allArticles.length}');
+      print('----------------------------------------------------------------------');
+      return allArticles;
     } catch (e) {
-      print('Error fetching article: $e');
       allArticles.add(Article.errorCounter(ApiResponse()..message = e.toString()));
+      return allArticles;
     }
-    return allArticles;
   }
 
   Future<Article> getDetailArticle(String id) async {
