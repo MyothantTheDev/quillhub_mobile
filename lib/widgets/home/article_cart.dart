@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:quillhub/models/article.dart';
 import 'package:quillhub/utils/core/constants.dart';
 
@@ -11,6 +12,7 @@ class ArticleCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     String image_url = '${Constants.postImage }${article.teaser!.image}';
+    String id = article.id ?? '';
 
     return Card(
       elevation: 4,
@@ -21,7 +23,9 @@ class ArticleCard extends ConsumerWidget {
       clipBehavior: Clip.hardEdge,
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
-        onTap: () {},
+        onTap: () {
+          context.goNamed('detail_article', pathParameters: {'category': 'trending', 'id': id});
+        },
         child: Stack(
           children: [
             Container(
@@ -46,6 +50,10 @@ class ArticleCard extends ConsumerWidget {
               ),
               child: Text(
                   article.teaser?.title ?? 'No Title',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.bold
+                  ),
               ),
             )
           ],
