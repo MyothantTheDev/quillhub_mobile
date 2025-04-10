@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:quillhub/models/api_response.dart';
 import 'package:quillhub/models/article.dart';
 import 'package:quillhub/services/api/api_service.dart';
@@ -26,7 +24,7 @@ class ArticleService {
 
       if (response.data != null && response.data is List<dynamic>) {
         for(final item in response.data as List<dynamic>) {
-          try {;
+          try {
             allArticles.add(Article.fromJsonWithTeaser(item));
           } catch (e) {
             print('Error parsing article: $e');
