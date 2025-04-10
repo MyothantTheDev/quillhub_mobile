@@ -63,11 +63,12 @@ class Teaser extends Model {
 
 class Article extends Model {
   final String? id;
+  final List<String>? tags;
   final List<ArticleBlock>? content;
   final int? likes;
   final Teaser? teaser;
 
-  Article({this.id, this.content, this.error, this.likes, this.teaser});
+  Article({this.id, this.content, this.error, this.likes, this.teaser, this.tags});
 
   factory Article.fromJson(Map<String, dynamic> json) {
 
@@ -76,6 +77,7 @@ class Article extends Model {
 
     return Article(
       id: json['_id']['\$oid'],
+      tags: json['tags'] ?? [''],
       content: blocks,
       likes: json['likes'],
     );
