@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quillhub/screens/home/article_detail.dart';
 import 'package:quillhub/screens/home/home.dart';
 import 'package:quillhub/screens/auth/login.dart';
 import 'package:quillhub/screens/profile/profile.dart';
@@ -49,10 +50,11 @@ class RouterService {
               path: ':category/:id',
               parentNavigatorKey: _rootNavigatorKey,
               builder: (BuildContext context, GoRouterState state) {
-                final id = state.pathParameters['id'];
-                final category = state.pathParameters['category'];
-                return Placeholder();
+                final id = state.pathParameters['id'] ?? '';
+                final category = state.pathParameters['category'] ?? 'trending';
+                return ArticleDetail(category: category, id: id,);
               },
+              name: 'detail_article'
             ),
           ],
           name: 'home',
