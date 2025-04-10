@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quillhub/providers/article_provider.dart';
 import 'package:quillhub/providers/category_provider.dart';
+import 'package:quillhub/widgets/home/article_cart.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -65,9 +66,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             }
 
             final article = articles[index];
-            return ListTile(
-              title: Text('${index + 1} ${article.teaser?.title}'),
-            );
+            return ArticleCard(article: article);
           },
         separatorBuilder: (BuildContext context, int index) => const Divider(height: 1),
       ),
