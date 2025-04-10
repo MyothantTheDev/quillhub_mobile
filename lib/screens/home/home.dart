@@ -68,7 +68,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             final article = articles[index];
             return ArticleCard(article: article);
           },
-        separatorBuilder: (BuildContext context, int index) => const Divider(height: 1),
+        separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 1),
       ),
     );
   }
