@@ -12,6 +12,7 @@ class Constants {
   static const String userURL = '$apiVersion/user';
 
   // Post Url
+  static const String postImage = '$apiVersion/post/media/';
   static const String postURL = '$apiVersion/post/all';
   static const String postdetailURL = '$apiVersion/post';
   static const String commentURL = '$apiVersion/comments';
